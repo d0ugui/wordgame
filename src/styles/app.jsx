@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   text-align: center;
 
@@ -16,14 +16,6 @@ export const ValidKeys = styled.div`
   font-weight: bold;
   min-width: 600px;
   border-bottom: solid 2px #fff;
-`
-
-export const Matched = styled.span`
-  background-color: #fdf8c5;
-  color: #282c34;
-`
-export const Remainder = styled.span`
-  opacity: 0.5;
 `
 
 export const CompletedWords = styled.div`
