@@ -19,4 +19,17 @@ export const GlobalStyle = createGlobalStyle`
 
     font-family: 'Rubik', sans-serif;
   }
+
+  .animeLeft {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: animeLeft .3s forwards;
+  }
+
+  @keyframes animeLeft {
+    to {
+      opacity: 1;
+      transform: initial;
+    }
+  }
 `

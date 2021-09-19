@@ -23,11 +23,31 @@ const isValidKey = (key, word) => {
 function App() {
   const [typedKeys, setTypedKeys] = useState([])
   const [validKey, setValidKey] = useState([])
+  const [completedWords, setCompletedWords] = useState([])
   const [word, setWord] = useState('')
 
   useEffect(() => {
     setWord(getWord())
   }, [])
+
+  useEffect(() => {
+    const wordFromValidKey = validKey.join('').toLowerCase()
+    if (word && word === wordFromValidKey) {
+      // Buscar uma nova palavra
+      let newWord = null
+      do {
+        newWord = getWord()
+      } while (completedWords.includes(newWord))
+
+      setWord(newWord)
+
+      // Adicionar word ao completedWords
+      setCompletedWords((prev) => [...prev, word])
+
+      // Limpar o array validKey
+      setValidKey([])
+    }
+  }, [word, validKey, completedWords])
 
   const handleKeyDown = (e) => {
     e.preventDefault()
@@ -50,11 +70,17 @@ function App() {
       </ValidKeys>
       <TypedKeys>{typedKeys ? typedKeys.join(' ') : null}</TypedKeys>
       <CompletedWords>
-        <ol>
-          <li>Cidade</li>
-          <li>Carro</li>
-          <li>Profissional</li>
-        </ol>
+        {completedWords.length >= 1 ? (
+          <ol>
+            {completedWords.map((word) => (
+              <li key={word} className="animeLeft">
+                {word}
+              </li>
+            ))}
+          </ol>
+        ) : (
+          <p>No words</p>
+        )}
       </CompletedWords>
       <GlobalStyle />
     </Container>
