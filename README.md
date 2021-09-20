@@ -1,4 +1,6 @@
-<img align="center" src="src/assets/tela.gif" alt="Mini-game">
+<h1 align="center">
+  <img src="src/assets/tela.gif" alt="Mini-game">
+</h1>
 
 ## 📖 Projeto
 
