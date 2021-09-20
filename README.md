@@ -1,4 +1,4 @@
-<!-- <img align="center" src="src/assets/tela.png" alt="to-do"> -->
+<img align="center" src="src/assets/tela.png" alt="Mini-game">
 
 ## 📖 Projeto
 
