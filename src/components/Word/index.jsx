@@ -6,9 +6,13 @@ export function Word({ word, validKey }) {
   const matched = word.slice(0, joinedKeys.length)
   const remainder = word.slice(joinedKeys.length)
 
+  const completedClass = (joinedKeys === word) ? 'completed' : ''
+
   return (
     <>
-      <Matched>{matched}</Matched>
+      <Matched className={completedClass}>
+        {matched}
+      </Matched>
       <Remainder>{remainder}</Remainder>
     </>
   )

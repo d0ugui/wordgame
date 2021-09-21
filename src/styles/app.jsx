@@ -30,6 +30,12 @@ export const CompletedWords = styled.div`
   font-size: 1.8rem;
   line-height: 2.5rem;
   opacity: 0.5;
+  display: flex;
+
+  ol {
+    flex-grow: 1;
+    align-self: flex-end;
+  }
 `
 export const TypedKeys = styled.div`
   width: 600px;

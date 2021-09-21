@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Container, ValidKeys, CompletedWords, TypedKeys } from './styles/app'
 
 import { GlobalStyle } from './styles/global'
@@ -7,6 +7,7 @@ import { Word } from './components/Word'
 import wordList from './resources/words.json'
 
 const maxTypedKeys = 30
+const wordAnimationIntraval = 200
 
 const getWord = () => {
   const index = Math.floor(Math.random() * wordList.length)
@@ -25,27 +26,37 @@ function App() {
   const [validKey, setValidKey] = useState([])
   const [completedWords, setCompletedWords] = useState([])
   const [word, setWord] = useState('')
+  const containerRef = useRef(null)
 
   useEffect(() => {
     setWord(getWord())
+    if(containerRef) containerRef.current.focus()
   }, [])
 
   useEffect(() => {
     const wordFromValidKey = validKey.join('').toLowerCase()
+    let timeout = null
+
     if (word && word === wordFromValidKey) {
-      // Buscar uma nova palavra
-      let newWord = null
-      do {
-        newWord = getWord()
-      } while (completedWords.includes(newWord))
+      setTimeout(() => {
+        // Buscar uma nova palavra
+        let newWord = null
+        do {
+          newWord = getWord()
+        } while (completedWords.includes(newWord))
 
-      setWord(newWord)
+        setWord(newWord)
 
-      // Adicionar word ao completedWords
-      setCompletedWords((prev) => [...prev, word])
+        // Adicionar word ao completedWords
+        setCompletedWords((prev) => [...prev, word])
 
-      // Limpar o array validKey
-      setValidKey([])
+        // Limpar o array validKey
+        setValidKey([])
+      }, wordAnimationIntraval)
+
+      return () => {
+        if(timeout) clearTimeout(timeout)
+      }
     }
   }, [word, validKey, completedWords])
 
@@ -64,7 +75,7 @@ function App() {
   }
 
   return (
-    <Container tabIndex="0" onKeyDown={handleKeyDown}>
+    <Container tabIndex="0" onKeyDown={handleKeyDown} ref={containerRef}>
       <ValidKeys>
         <Word word={word} validKey={validKey} />
       </ValidKeys>
